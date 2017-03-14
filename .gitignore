@@ -4,3 +4,5 @@ vim/bundle/
 config/fish/fishd.*
 
 oh-my-zsh
+
+dotfiles_old/

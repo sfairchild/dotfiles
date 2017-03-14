@@ -6,9 +6,9 @@
 
 ########## Variables
 
-dir=~/dotfiles                    # dotfiles directory
-olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bashrc vimrc vim zshrc oh-my-zsh config"    # list of files/folders to symlink in homedir
+dir=~/dotfiles                                   # dotfiles directory
+olddir=$dir/dotfiles_old/$(date +%s)/            # old dotfiles backup directory with a timestamp
+files="bashrc vimrc vim zshrc oh-my-zsh config"  # list of files/folders to symlink in homedir
 
 ##########
 
@@ -25,7 +25,7 @@ echo "done"
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
 for file in $files; do
     echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file ~/dotfiles_old/
+    mv ~/.$file $olddir
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
@@ -60,13 +60,9 @@ fi
 
 install_vundle () {
 # Test to see is vundle is installed
-if [ ! -d "$dir/vim/bundle" ]; then
-    mkdir -p "$dir/vim/bundle"
-    cd $dir/vim/bundle
-    git clone https://github.com/VundleVim/Vundle.vim.git
-    cd $dir
+if [ ! -d "$dir/vim/bundle/Vundle.vim" ]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git $dir/vim/bundle/Vundle.vim
 fi
-vim -c 'PluginInstall' -c 'qa!'
 }
 
 set_default_shell () {
