@@ -8,7 +8,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bashrc vimrc vim zshrc oh-my-zsh private scrotwm.conf Xresources"    # list of files/folders to symlink in homedir
+files="bashrc vimrc vim zshrc oh-my-zsh config"    # list of files/folders to symlink in homedir
 
 ##########
 
@@ -36,10 +36,6 @@ if [ -f /bin/zsh -o -f /usr/bin/zsh ]; then
     # Clone my oh-my-zsh repository from GitHub only if it isn't already present
     if [[ ! -d $dir/oh-my-zsh/ ]]; then
         git clone http://github.com/robbyrussell/oh-my-zsh.git
-    fi
-    # Set the default shell to zsh if it isn't currently set to zsh
-    if [[ ! $(echo $SHELL) == $(which zsh) ]]; then
-        chsh -s $(which zsh)
     fi
 else
     # If zsh isn't installed, get the platform of the current machine
@@ -73,5 +69,21 @@ fi
 vim -c 'PluginInstall' -c 'qa!'
 }
 
+set_default_shell () {
+# Setup FISH as default editor if FISH is installed
+if [ -f /usr/local/bin/fish ]; then
+    echo "Setting default shell to FISH"
+    chsh -s $(which fish)
+elif [ -f /bin/zsh ]; then
+    echo "Setting default shell to zsh"
+    chsh -s $(which zsh)
+else
+    echo "Please install zsh of fish, then re-run this script if you want FISH of zsh to be your editor"
+fi
+
+}
+
+
 install_vundle
 install_zsh
+set_default_shell
