@@ -12,6 +12,12 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'skalnik/vim-vroom'
+Plugin 'tpope/vim-endwise'
+Plugin 'ervandew/supertab'
+Plugin 'vim-scripts/LustyExplorer'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-surround'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -22,3 +28,14 @@ filetype plugin indent on    " required
 
 " set line numbers on
 set number
+
+" set syntax highlighting on
+syntax on
+
+" set indent width to 2
+set sw=2
+
+" set tab width
+set tabstop=2 softtabstop=0 smarttab expandtab
+
+set hidden
