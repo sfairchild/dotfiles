@@ -1,3 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/Users/sfairchild/exercism/ruby/robot-simulator'
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/Users/sfairchild/exercism/ruby/diamond'
+let g:netrw_dirhist_2='/Users/sfairchild/Sites/traveling_hackerbox'
+let g:netrw_dirhist_3='/Users/sfairchild/Sites/traveling_hackerbox/app'
+let g:netrw_dirhist_4='/Users/sfairchild/Sites/traveling_hackerbox/app/assets'
+let g:netrw_dirhist_5='/Users/sfairchild/Sites/traveling_hackerbox/app/assets/stylesheets'
+let g:netrw_dirhist_6='/Users/sfairchild/Sites/nex-seat/config'
+let g:netrw_dirhist_7='/Users/sfairchild/Sites/nex-seat'
