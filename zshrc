@@ -1,5 +1,5 @@
 # Explicitly configured $PATH variable
-PATH=/usr/local/git/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/local/bin:/opt/local/sbin:/usr/X11/bin
+PATH=$PATH:/usr/local/git/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/local/bin:/opt/local/sbin:/usr/X11/bin
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
@@ -9,7 +9,7 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="xiong-chiamiov-plus"
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -28,7 +28,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx zsh-syntax-highlighting brew repo sudo knife vagrant bundler web-search)
+plugins=(git osx zsh-syntax-highlighting brew sudo bundler web-search rvm ruby rails)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -64,6 +64,9 @@ alias vaghalt='vagrant halt'
 ## Miscellaneous Aliases
 alias htop='sudo htop'
 
+## Add vi key bindings
+bindkey -v
+
 # Shell Functions
 # qfind - used to quickly find files that contain a string in a directory
 qfind () {
@@ -82,3 +85,7 @@ fi
 if [ -f /usr/bin/vim ]; then
   export EDITOR=/usr/bin/vim
 fi
+source $HOME/.zshenv
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
