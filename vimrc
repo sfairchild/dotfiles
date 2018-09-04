@@ -9,60 +9,73 @@ set hidden
 let nerdtreeshowhidden=1
 set tabstop=2 shiftwidth=2 expandtab
 
-packadd minpac
+call plug#begin('~/.vim/plugged')
 
-call minpac#init()
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-unimpaired'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'mattn/emmet-vim'
+Plug 'w0rp/ale'
+Plug 'tpope/vim-commentary'
 
-call minpac#add('tpope/vim-sensible')
-call minpac#add('tpope/vim-unimpaired')
-call minpac#add('scrooloose/nerdtree')
-call minpac#add('tpope/vim-surround')
-call minpac#add('pangloss/vim-javascript')
-call minpac#add('mxw/vim-jsx')
-call minpac#add('mattn/emmet-vim')
-call minpac#add('w0rp/ale')
-call minpac#add('ctrlpvim/ctrlp.vim')
-call minpac#add('tpope/vim-fugitive')
-call minpac#add('airblade/vim-gitgutter')
-call minpac#add('skywind3000/asyncrun.vim')
-call minpac#add('Xuyuanp/nerdtree-git-plugin')
-call minpac#add('junegunn/fzf.vim')
-call minpac#add('Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' })
-call minpac#add('roxma/nvim-yarp')
-call minpac#add('roxma/vim-hug-neovim-rpc')
-call minpac#add('wokalski/autocomplete-flow')
-call minpac#add('thalesmello/webcomplete.vim')
-call minpac#add('Shougo/neosnippet')
-call minpac#add('Shougo/neosnippet-snippets')
-call minpac#add('Shougo/neoinclude.vim')
-call minpac#add('tpope/vim-scriptease', {'type': 'opt'})
-call minpac#add('tpope/vim-commentary')
-call minpac#add('tpope/vim-repeat')
-call minpac#add('jiangmiao/auto-pairs')
-call minpac#add('sotte/presenting.vim')
-call minpac#add('inkarkat/vim-SyntaxRange')
-call minpac#add('inkarkat/vim-ingo-library')
-" call minpac#add('vim-scripts/SyntaxRange')
-call minpac#add('tpope/vim-markdown')
-call minpac#add('tpope/vim-abolish')
-call minpac#add('junegunn/vader.vim')
-" call minpac#add('gabrielelana/vim-markdown')
-call minpac#add('hwartig/vim-seeing-is-believing')
-call minpac#add('lucasteles/SWTC.Vim')
-call minpac#add('dahu/vim-rng')
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-endwise'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'junegunn/fzf.vim'
+Plug 'wokalski/autocomplete-flow'
+Plug 'thalesmello/webcomplete.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
-call minpac#add('vim-airline/vim-airline')
-call minpac#add('vim-airline/vim-airline-themes')
-call minpac#add('othree/yajs.vim')
-call minpac#add('mhartington/oceanic-next')
-call minpac#add('dracula/vim', { 'as': 'dracula' })
+Plug 'Shougo/neoinclude.vim'
+Plug 'tpope/vim-scriptease', {'type': 'opt'}
+Plug 'tpope/vim-repeat'
+Plug 'jiangmiao/auto-pairs'
+Plug 'sotte/presenting.vim'
+Plug 'inkarkat/vim-SyntaxRange'
+Plug 'inkarkat/vim-ingo-library'
+Plug 'vim-scripts/SyntaxRange'
+Plug 'tpope/vim-markdown'
 
-let g:user_emmet_leader_key='<Tab>'
+Plug 'tpope/vim-abolish'
+Plug 'junegunn/vader.vim'
+Plug 'gabrielelana/vim-markdown'
+Plug 'hwartig/vim-seeing-is-believing'
+Plug 'lucasteles/SWTC.Vim'
+Plug 'dahu/vim-rng'
+Plug 'ervandew/supertab'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'othree/yajs.vim'
+Plug 'mhartington/oceanic-next'
+Plug 'dracula/vim', { 'as': 'dracula' }
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+call plug#end()
+
+let g:user_emmet_leader_key=','
 let g:user_emmet_settings = {
-\  'javascript' : {
-\      'extends' : 'jsx',
-\  },
-\}
+      \  'javascript' : {
+      \      'extends' : 'jsx',
+      \  },
+      \}
 
 autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
 autocmd BufWritePost *.jsx AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
@@ -70,11 +83,11 @@ autocmd BufWritePost *.jsx AsyncRun -post=checktime ./node_modules/.bin/eslint -
 let g:deoplete#enable_at_startup = 1
 let g:neosnippet#enable_completed_snippet = 1
 let g:deoplete#sources#ternjs#filetypes = [
-                \ 'jsx',
-                \ 'javascript.jsx',
-                \ 'vue',
-                \ '...'
-                \ ]
+      \ 'jsx',
+      \ 'javascript.jsx',
+      \ 'vue',
+      \ '...'
+      \ ]
 
 silent! nmap <leader>n :NERDTreeToggle<CR>
 silent! nmap <leader>N :NERDTreeFind<CR>
@@ -105,3 +118,7 @@ augroup seeingIsBelievingSettings
   autocmd FileType ruby nmap <buffer> <F5> <Plug>(seeing-is-believing-run)
   autocmd FileType ruby imap <buffer> <F5> <Plug>(seeing-is-believing-run)
 augroup END
+
+syntax on
+color dracula
+
