@@ -56,7 +56,7 @@ Plug 'dahu/vim-rng'
 Plug 'ervandew/supertab'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
-
+Plug 'zxqfl/tabnine-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'othree/yajs.vim'
@@ -65,6 +65,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
@@ -118,9 +119,9 @@ smap <expr><TAB>
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For conceal markers.
-" if has('conceal')
-"   set conceallevel=2 concealcursor=niv
-" endif
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 silent! nmap <leader>n :NERDTreeToggle<CR>
 silent! nmap <leader>N :NERDTreeFind<CR>
@@ -133,16 +134,22 @@ nmap <C-l> <C-w>l
 
 tnoremap <Esc> <C-\><C-n>
 
-" tnoremap <C-h> <C-\><C-n><C-w>h
-" tnoremap <C-j> <C-\><C-n><C-w>j
-" tnoremap <C-k> <C-\><C-n><C-w>k
-" tnoremap <C-w> <C-\><C-n><C-w>l
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-w> <C-\><C-n><C-w>l
 
 nmap <leader>s :w<CR>
 
 let g:fzf_layout = { 'left': '~20%' }
 
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'javascript']
+
+" Trim whitespace on save for the specified filetypes
+fun! TrimWhiteSpace()
+    %s/\s\+$//e
+endfun
+autocmd FileType c,cpp,java,elixir,ruby,python,javascript autocmd BufWritePre <buffer> :call TrimWhiteSpace()
 
 " Enable seeing-is-believing mappings only for Ruby
 augroup seeingIsBelievingSettings
@@ -161,4 +168,15 @@ augroup END
 
 syntax on
 color dracula
+
+
+" Handle trailing whitespace
+" This needs to be after setting other highlighting that might override these
+" settings
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
