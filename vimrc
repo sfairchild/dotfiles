@@ -9,6 +9,9 @@ set hidden
 let nerdtreeshowhidden=1
 set tabstop=2 shiftwidth=2 expandtab
 
+set splitbelow
+set splitright
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
@@ -33,8 +36,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf.vim'
 Plug 'wokalski/autocomplete-flow'
 Plug 'thalesmello/webcomplete.vim'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
 
 Plug 'Shougo/neoinclude.vim'
 Plug 'tpope/vim-scriptease', {'type': 'opt'}
@@ -44,15 +45,17 @@ Plug 'sotte/presenting.vim'
 Plug 'inkarkat/vim-SyntaxRange'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'vim-scripts/SyntaxRange'
-Plug 'tpope/vim-markdown'
+" Plug 'tpope/vim-markdown'
 
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/vader.vim'
-Plug 'gabrielelana/vim-markdown'
+" Plug 'gabrielelana/vim-markdown'
 Plug 'hwartig/vim-seeing-is-believing'
 Plug 'lucasteles/SWTC.Vim'
 Plug 'dahu/vim-rng'
 Plug 'ervandew/supertab'
+Plug 'elixir-editors/vim-elixir'
+Plug 'slashmili/alchemist.vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -68,26 +71,56 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
 call plug#end()
 
-let g:user_emmet_leader_key=','
 let g:user_emmet_settings = {
       \  'javascript' : {
       \      'extends' : 'jsx',
+      \  },
+      \  'markdown' : {
+      \      'extends' : 'md',
       \  },
       \}
 
 autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
 autocmd BufWritePost *.jsx AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
 
-let g:deoplete#enable_at_startup = 1
-let g:neosnippet#enable_completed_snippet = 1
 let g:deoplete#sources#ternjs#filetypes = [
       \ 'jsx',
       \ 'javascript.jsx',
       \ 'vue',
       \ '...'
       \ ]
+
+
+" Enable plugins
+let g:deoplete#enable_at_startup=1
+autocmd FileType markdown let g:deoplete#enable_at_startup=0
+set updatetime=250 "for vim gitgutter
+
+" NeoSnippets
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+smap <expr><TAB>
+\ neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+" if has('conceal')
+"   set conceallevel=2 concealcursor=niv
+" endif
 
 silent! nmap <leader>n :NERDTreeToggle<CR>
 silent! nmap <leader>N :NERDTreeFind<CR>
@@ -97,6 +130,13 @@ nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
+
+tnoremap <Esc> <C-\><C-n>
+
+" tnoremap <C-h> <C-\><C-n><C-w>h
+" tnoremap <C-j> <C-\><C-n><C-w>j
+" tnoremap <C-k> <C-\><C-n><C-w>k
+" tnoremap <C-w> <C-\><C-n><C-w>l
 
 nmap <leader>s :w<CR>
 

@@ -1,91 +1,146 @@
-# Explicitly configured $PATH variable
-PATH=$PATH:/usr/local/git/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/opt/local/bin:/opt/local/sbin:/usr/X11/bin
+source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
 
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME="xiong-chiamiov-plus"
-ZSH_THEME="agnoster"
+# Path to your oh-my-zsh installation.
+export ZSH=~/.oh-my-zsh
 
-# Set to this to use case-sensitive completion
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Comment this out to disable weekly auto-update checks
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
-# Uncomment following line if you want to disable colors in ls
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
-# Uncomment following line if you want to disable autosetting terminal title.
+# Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git osx zsh-syntax-highlighting brew sudo bundler web-search rvm ruby rails)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  git
+  last-working-dir
+  node
+  npm
+  wd
+)
 
 source $ZSH/oh-my-zsh.sh
 
-# Put any proprietary or private functions/values in ~/.private, and this will source them
-if [ -f $HOME/.private ]; then
-  source $HOME/.private
+# User configuration
+
+export VIMCONFIG=~/.vim
+export VIMDATA=~/.vim
+
+alias vimrc='vim ~/.vimrc'
+alias zshrc='vim ~/.zshrc'
+
+alias ctags="`brew --prefix`/bin/ctags"
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/opt/curl/bin:$PATH"
+
+eval "$(rbenv init -)"
+
+autoload -Uz compinit && compinit
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+
+# Go development
+#
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+
+# set the default editor
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+alias vim="nvim"
+alias vi="nvim"
+
+export PATH="/usr/local/opt/qt/bin:$PATH"
+
+# For compilers to find qt you may need to set:
+export LDFLAGS="-L/usr/local/opt/qt/lib"
+export CPPFLAGS="-I/usr/local/opt/qt/include"
+
+# For pkg-config to find qt you may need to set:
+export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig"
+
+if [ -f ~/.private_env_vars ]; then
+  source ~/.private_env_vars
+else
+  print "ERROR: File ~/.private_env_vars does not exist"
 fi
-
-if [ -f $HOME/.profile ]; then
-  source $HOME/.profile  # Read Mac .profile, if present.
-fi
-
-# Shell Aliases
-## Git Aliases
-alias gs='git status '
-alias ga='git add '
-alias gb='git branch '
-alias gc='git commit'
-alias gd='git diff'
-alias go='git checkout '
-alias gk='gitk --all&'
-alias gx='gitx --all'
-alias got='git '
-alias get='git '
-
-## Vagrant Aliases
-alias vag='vagrant'
-alias vagup='vagrant up'
-alias vagdestroy='vagrant destroy'
-alias vagssh='vagrant ssh'
-alias vaghalt='vagrant halt'
-
-## Miscellaneous Aliases
-alias htop='sudo htop'
-
-## Add vi key bindings
-bindkey -v
-
-# Shell Functions
-# qfind - used to quickly find files that contain a string in a directory
-qfind () {
-  find . -exec grep -l -s $1 {} \;
-  return 0
-}
-
-# If fortune is installed, run a fortune
-if [ -e /opt/local/bin/fortune ] || [ -e /usr/local/bin/fortune ] ; then
-    fortune
-    echo " "
-fi
-
-# Custom exports
-## Set EDITOR to /usr/bin/vim if Vim is installed
-if [ -f /usr/bin/vim ]; then
-  export EDITOR=/usr/bin/vim
-fi
-source $HOME/.zshenv
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
