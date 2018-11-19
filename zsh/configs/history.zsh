@@ -1,0 +1,1 @@
+/Users/sfair01/dotfiles/zsh/configs/history.zsh
