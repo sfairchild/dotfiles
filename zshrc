@@ -61,11 +61,15 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  brew
   git
   last-working-dir
   node
   npm
   wd
+  themes
+  tmux
+  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -129,6 +133,9 @@ export EDITOR="$VISUAL"
 
 alias vim="nvim"
 alias vi="nvim"
+
+# Reduces binding (ESC) timeout from .4ms to .1ms
+export KEYTIMEOUT=1
 
 export PATH="/usr/local/opt/qt/bin:$PATH"
 
