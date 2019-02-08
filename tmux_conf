@@ -1,4 +1,59 @@
-# set -g mode-mouse on
-# set -g mouse-resize-pane on
-# set -g mouse-select-pane on
-# set -g mouse-select-window on
+# Set the prefix from C-b to C-a
+set -g prefix C-a
+
+# Turn on mouse
+set -g mouse on
+
+# Set the delay between prefix and command
+set -s escape-time 1
+
+# Set the base index of windows from 0 to 1
+set -g base-index 1
+
+# Set the pane base index from 0 to 1
+set -g pane-base-index 1
+
+# Enable vim keys
+setw -g mode-keys vi
+
+# Custom key bindings
+
+# reload .tmux.conf with C-r
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
+
+# Split panes with | and -
+bind | split-window -h
+bind - split-window -v
+
+# Move between panes withh, j, k and l
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Move between windows
+bind -r C-h select-window -t :-
+bind -r C-l select-window -t :+
+
+# Resize panes
+bind -r H resize-pane -L 1
+bind -r J resize-pane -D 1
+bind -r K resize-pane -U 1
+bind -r L resize-pane -R 1
+
+
+# Apperance
+set -g default-terminal "screen-256color"
+
+set -g status-style fg=white,bg=colour236
+
+setw -g window-status-style fg=cyan,bg=default
+setw -g window-status-current-style fg=white,bold,bg=red
+
+setw -g pane-border-style fg=green,bg=black
+setw -g pane-active-border-style fg=white,bg=yellow
+
+setw -g window-style fg=colour240,bg=colour235
+setw -g window-active-style fg=white,bg=black
+
+set -g message-style fg=white,bold,bg=black
