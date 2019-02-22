@@ -2,6 +2,7 @@ set encoding=utf-8
 
 set rtp+=/usr/local/opt/fzf
 
+set t_Co=256
 set number
 set relativenumber
 set mouse=a
@@ -30,6 +31,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'idanarye/vim-merginal'
 Plug 'airblade/vim-gitgutter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -45,27 +47,36 @@ Plug 'sotte/presenting.vim'
 Plug 'inkarkat/vim-SyntaxRange'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'vim-scripts/SyntaxRange'
-" Plug 'tpope/vim-markdown'
 
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/vader.vim'
-" Plug 'gabrielelana/vim-markdown'
+Plug 'gabrielelana/vim-markdown'
 Plug 'hwartig/vim-seeing-is-believing'
 Plug 'lucasteles/SWTC.Vim'
 Plug 'dahu/vim-rng'
 Plug 'ervandew/supertab'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
-Plug 'zxqfl/tabnine-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'othree/yajs.vim'
 Plug 'mhartington/oceanic-next'
+
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'nanotech/jellybeans.vim'
+
+" Plug 'https://github.com/trapd00r/vimpoint'
+
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
+" typescript support
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'HerringtonDarkholme/deoplete-typescript'
+Plug 'Quramy/tsuquyomi'
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
@@ -83,6 +94,9 @@ let g:user_emmet_settings = {
       \  },
       \  'markdown' : {
       \      'extends' : 'md',
+      \  },
+      \  'elixir' : {
+      \      'extends' : 'eex',
       \  },
       \}
 
@@ -167,8 +181,7 @@ augroup seeingIsBelievingSettings
 augroup END
 
 syntax on
-color dracula
-
+color jellybeans
 
 " Handle trailing whitespace
 " This needs to be after setting other highlighting that might override these

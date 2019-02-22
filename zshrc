@@ -66,10 +66,11 @@ plugins=(
   last-working-dir
   node
   npm
-  wd
   themes
   tmux
+  tmuxinator
   vi-mode
+  wd
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -110,6 +111,15 @@ alias ctags="`brew --prefix`/bin/ctags"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Add tmuxinator autocompletes
+function rvm () {
+  if [[ $1 == 'use' ]]; then
+    rbenv shell $2
+  fi
+}
+
+source ~/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/tmuxinator-0.15.0/completion/tmuxinator.zsh
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
@@ -138,6 +148,7 @@ alias vi="nvim"
 export KEYTIMEOUT=1
 
 export PATH="/usr/local/opt/qt/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # For compilers to find qt you may need to set:
 export LDFLAGS="-L/usr/local/opt/qt/lib"
@@ -151,3 +162,11 @@ if [ -f ~/.private_env_vars ]; then
 else
   print "ERROR: File ~/.private_env_vars does not exist"
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-sctp --enable-smp-support --enable-threads --enable-kernel-poll --enable-wx --enable-darwin-64bit --with-ssl=/usr/local/Cellar/openssl/1.0.2q"
+
+
+. ~/.asdf/plugins/java/asdf-java-wrapper.zsh
+
