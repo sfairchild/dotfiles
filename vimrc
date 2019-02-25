@@ -10,6 +10,9 @@ set hidden
 let nerdtreeshowhidden=1
 set tabstop=2 shiftwidth=2 expandtab
 
+" make leader key be space
+let mapleader="\<SPACE>"
+
 set splitbelow
 set splitright
 
@@ -29,7 +32,6 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'idanarye/vim-merginal'
 Plug 'airblade/vim-gitgutter'
@@ -57,8 +59,6 @@ Plug 'dahu/vim-rng'
 Plug 'ervandew/supertab'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'othree/yajs.vim'
 Plug 'mhartington/oceanic-next'
 
@@ -85,6 +85,30 @@ endif
 
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+
+" vim airline for status bar
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+let g:airline#extensions#tabline#enabled=1
+let g:airline_powerline_fonts=1
+set laststatus=2
+
+" view indentation in buffers
+Plug 'Yggdroot/indentLine'
+let g:indentLine_enabled = 1
+let g:indentLine_char = "⟩"
+
+" ctrl-p for fuzzy finding
+Plug 'ctrlpvim/ctrlp.vim'
+nnoremap <Leader>p :CtrlP<CR>
+
+" use ag/silver searcher for searching in files
+Plug 'mhinz/vim-grepper'
+nnoremap <Leader>fp :Grepper<Space>-query<Space>
+nnoremap <Leader>fb :Grepper<Space>-buffers<Space>-query<Space>-<Space>
+nmap gs  <plug>(GrepperOperator)
+xmap gs  <plug>(GrepperOperator)
 
 call plug#end()
 
@@ -182,6 +206,7 @@ augroup END
 
 syntax on
 color jellybeans
+" color dracula
 
 " Handle trailing whitespace
 " This needs to be after setting other highlighting that might override these
@@ -193,3 +218,13 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" use arrow keys to resize panes
+nnoremap <Left> :vertical resize -1<CR>
+nnoremap <Right> :vertical resize +1<CR>
+nnoremap <Up> :resize -1<CR>
+nnoremap <Down> :resize +1<CR>
+" Disable arrow keys completely in Insert Mode
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
