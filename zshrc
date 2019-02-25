@@ -137,6 +137,8 @@ export GOPATH="${HOME}/.go"
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
+export PATH="$PATH:$HOME/.cabel/bin"
+
 # set the default editor
 export VISUAL=nvim
 export EDITOR="$VISUAL"
