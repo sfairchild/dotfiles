@@ -10,9 +10,6 @@ set hidden
 let nerdtreeshowhidden=1
 set tabstop=2 shiftwidth=2 expandtab
 
-" make leader key be space
-let mapleader="\<SPACE>"
-
 set splitbelow
 set splitright
 
