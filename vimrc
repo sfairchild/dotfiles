@@ -29,9 +29,6 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'idanarye/vim-merginal'
-Plug 'airblade/vim-gitgutter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf.vim'
@@ -82,6 +79,12 @@ endif
 
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+
+" git plugins
+Plug 'tpope/vim-fugitive'
+Plug 'idanarye/vim-merginal'
+Plug 'airblade/vim-gitgutter'
+nnoremap <Leader>gs :Gstatus<CR>
 
 " vim airline for status bar
 Plug 'vim-airline/vim-airline'
