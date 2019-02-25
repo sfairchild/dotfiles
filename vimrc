@@ -47,7 +47,6 @@ Plug 'vim-scripts/SyntaxRange'
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/vader.vim'
 Plug 'gabrielelana/vim-markdown'
-Plug 'hwartig/vim-seeing-is-believing'
 Plug 'lucasteles/SWTC.Vim'
 Plug 'dahu/vim-rng'
 Plug 'ervandew/supertab'
@@ -58,6 +57,9 @@ Plug 'mhartington/oceanic-next'
 
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'nanotech/jellybeans.vim'
+
+" ruby plugins
+Plug 'hwartig/vim-seeing-is-believing'
 
 " Plug 'https://github.com/trapd00r/vimpoint'
 
