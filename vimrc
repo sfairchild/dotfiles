@@ -46,7 +46,7 @@ Plug 'vim-scripts/SyntaxRange'
 
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/vader.vim'
-Plug 'gabrielelana/vim-markdown'
+" Plug 'gabrielelana/vim-markdown'
 Plug 'lucasteles/SWTC.Vim'
 Plug 'dahu/vim-rng'
 Plug 'ervandew/supertab'
@@ -100,6 +100,10 @@ set laststatus=2
 Plug 'Yggdroot/indentLine'
 let g:indentLine_enabled = 1
 let g:indentLine_char = "⟩"
+set list
+set listchars=tab:-\|
+
+Plug 'gregsexton/MatchTag'
 
 " ctrl-p for fuzzy finding
 Plug 'ctrlpvim/ctrlp.vim'
@@ -111,6 +115,8 @@ nnoremap <Leader>fp :Grepper<Space>-query<Space>
 nnoremap <Leader>fb :Grepper<Space>-buffers<Space>-query<Space>-<Space>
 nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
+
+Plug 'tpope/vim-apathy'
 
 call plug#end()
 
@@ -126,8 +132,12 @@ let g:user_emmet_settings = {
       \  },
       \}
 
-autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
-autocmd BufWritePost *.jsx AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
+" autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
+" autocmd BufWritePost *.jsx AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
+
+augroup ProjectSetup
+  au BufRead,BufEnter ~/Sites/hawkeye-manager-ui/* set noexpandtab
+augroup END
 
 let g:deoplete#sources#ternjs#filetypes = [
       \ 'jsx',

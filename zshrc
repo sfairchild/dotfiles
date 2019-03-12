@@ -112,27 +112,28 @@ alias ctags="`brew --prefix`/bin/ctags"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Add tmuxinator autocompletes
-function rvm () {
-  if [[ $1 == 'use' ]]; then
-    rbenv shell $2
-  fi
-}
-
-source ~/.rbenv/versions/2.4.4/lib/ruby/gems/2.4.0/gems/tmuxinator-0.15.0/completion/tmuxinator.zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/usr/local/opt/curl/bin:$PATH"
-
-eval "$(rbenv init -)"
-
-autoload -Uz compinit && compinit
+# function rvm () {
+#   if [[ $1 == 'use' ]]; then
+#     rbenv shell $2
+#   fi
+# }
 
 . $HOME/.asdf/asdf.sh
 
 . $HOME/.asdf/completions/asdf.bash
 
+source ~/.asdf/installs/ruby/2.6.1/lib/ruby/gems/2.6.0/gems/tmuxinator-0.15.0/completion/tmuxinator.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/opt/curl/bin:$PATH"
+
+# eval "$(rbenv init -)"
+
+autoload -Uz compinit && compinit
+
+
 # Go development
-#
+
 export GOPATH="${HOME}/.go"
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
