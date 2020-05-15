@@ -31,7 +31,32 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+
 Plug 'junegunn/fzf.vim'
+
+" Using floating windows of Neovim to start fzf
+" if has('nvim')
+"   let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2'
+
+"   function! FloatingFZF()
+"     let width = float2nr(&columns * 0.9)
+"     let height = float2nr(&lines * 0.6)
+"     let opts = { 'relative': 'editor',
+"                \ 'row': (&lines - height) / 2,
+"                \ 'col': (&columns - width) / 2,
+"                \ 'width': width,
+"                \ 'height': height }
+
+"     let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+"     call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+"   endfunction
+
+"   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+" endif
+"
+" let g:fzf_layout = { 'left': '~20%' }
+
+" https://github.com/wokalski/autocomplete-flow
 Plug 'wokalski/autocomplete-flow'
 Plug 'thalesmello/webcomplete.vim'
 
@@ -79,6 +104,73 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+Plug 'martinda/Jenkinsfile-vim-syntax'
+
+let g:elixirls = {
+  \ 'path': printf('%s/%s', stdpath('config'), 'bundle/elixir-ls'),
+  \ }
+
+let g:elixirls.lsp = printf(
+  \ '%s/%s',
+  \ g:elixirls.path,
+  \ 'release/language_server.sh')
+
+function! g:elixirls.compile(...)
+  let l:commands = join([
+    \ 'mix local.hex --force',
+    \ 'mix local.rebar --force',
+    \ 'mix deps.get',
+    \ 'mix compile',
+    \ 'mix elixir_ls.release'
+    \ ], '&&')
+
+  echom '>>> Compiling elixirls'
+  silent call system(l:commands)
+  echom '>>> elixirls compiled'
+endfunction
+
+" call coc#config('languageserver', {
+"   \ 'elixir': {
+"   \   'command': g:elixirls.lsp,
+"   \   'trace.server': 'verbose',
+"   \   'filetypes': ['elixir', 'eelixir']
+"   \ }
+"   \})
+
+" Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': { -> coc#util#install() } }
+" Plug 'JakeBecker/elixir-ls', { 'do': { -> g:elixirls.compile() } }
+
+" let g:elixirls = {
+"   \ 'path': printf('%s/%s', stdpath('config'), 'bundle/elixir-ls'),
+"   \ }
+
+" let g:elixirls.lsp = printf(
+"   \ '%s/%s',
+"   \ g:elixirls.path,
+"   \ 'release/language_server.sh')
+
+" function! g:elixirls.compile(...)
+"   let l:commands = join([
+"     \ 'mix local.hex --force',
+"     \ 'mix local.rebar --force',
+"     \ 'mix deps.get',
+"     \ 'mix compile',
+"     \ 'mix elixir_ls.release'
+"     \ ], '&&')
+
+"   echom '>>> Compiling elixirls'
+"   silent call system(l:commands)
+"   echom '>>> elixirls compiled'
+" endfunction
+
+" call coc#config('languageserver', {
+"   \ 'elixir': {
+"   \   'command': g:elixirls.lsp,
+"   \   'trace.server': 'verbose',
+"   \   'filetypes': ['elixir', 'eelixir']
+"   \ }
+"   \})
+
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
@@ -117,6 +209,31 @@ nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
 
 Plug 'tpope/vim-apathy'
+
+Plug 'mileszs/ack.vim'
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+Plug 'jeetsukumaran/vim-indentwise'
+
+" handle saving folds/settings between sessions
+Plug 'zhimsel/vim-stay'
+set viewoptions=cursor,folds,slash,unix
+
+" create/list gists within vim
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
+let g:gist_detect_filetype = 1
+
+" Use nvim in the browser
+Plug 'glacambre/firenvim'
+let g:firenvim_config = {
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'selector': 'textarea',
+            \ 'priority': 0,
+        \ }
+    \ }
+\ }
 
 call plug#end()
 
@@ -191,7 +308,6 @@ tnoremap <C-w> <C-\><C-n><C-w>l
 
 nmap <leader>s :w<CR>
 
-let g:fzf_layout = { 'left': '~20%' }
 
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'javascript']
 
@@ -240,3 +356,18 @@ imap <up> <nop>
 imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
+
+" use Alt-, or Alt-. to just to line with same indent level
+nnoremap <M-,> :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%<' . line('.') . 'l\S', 'be')<CR>
+nnoremap <M-.> :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%>' . line('.') . 'l\S', 'e')<CR>
+
+" command -nargs=1 Vsb call VsbFunction(<f-args>)
+
+function VsbFunction (arg1)
+  execute 'vert sb' a:arg1
+endfunction
+
+
+autocmd filetype crontab setlocal nobackup nowritebackup
+
+

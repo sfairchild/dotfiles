@@ -19,7 +19,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -61,16 +61,37 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  asdf
+  aws
   brew
+  bundler
+  chucknorris
+  common-aliases
+  compleat
+  copyfile
+  docker
+  docker-compose
+  emoji
+  gem
   git
+  history
+  kubectl
+  jsontools
+  knife
+  kubectl
   last-working-dir
+  mix
   node
   npm
+  osx
   themes
+  terraform
   tmux
   tmuxinator
   vi-mode
   wd
+  web-search
+  zsh_reload
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -80,8 +101,8 @@ source $ZSH/oh-my-zsh.sh
 export VIMCONFIG=~/.vim
 export VIMDATA=~/.vim
 
-alias vimrc='vim ~/.vimrc'
-alias zshrc='vim ~/.zshrc'
+alias vrc='vim ~/.vimrc'
+alias zrc='vim ~/.zshrc'
 
 alias ctags="`brew --prefix`/bin/ctags"
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -117,12 +138,7 @@ alias ctags="`brew --prefix`/bin/ctags"
 #     rbenv shell $2
 #   fi
 # }
-
-. $HOME/.asdf/asdf.sh
-
-. $HOME/.asdf/completions/asdf.bash
-
-source ~/.asdf/installs/ruby/2.6.1/lib/ruby/gems/2.6.0/gems/tmuxinator-0.15.0/completion/tmuxinator.zsh
+# source ~/.asdf/installs/ruby/2.6.1/lib/ruby/gems/2.6.0/gems/tmuxinator-0.15.0/completion/tmuxinator.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/opt/curl/bin:$PATH"
@@ -134,9 +150,9 @@ autoload -Uz compinit && compinit
 
 # Go development
 
-export GOPATH="${HOME}/.go"
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+export GOPATH="${HOME}/go"
+# export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin"
 
 export PATH="$PATH:$HOME/.cabel/bin"
 
@@ -170,6 +186,58 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-sctp --enable-smp-support --enable-threads --enable-kernel-poll --enable-wx --enable-darwin-64bit --with-ssl=/usr/local/Cellar/openssl/1.0.2q"
 
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="${HOME}/bin:$PATH"
 
-. ~/.asdf/plugins/java/asdf-java-wrapper.zsh
+export PATH="${PATH}:${HOME}.asdf/installs/elixir/1.9.1-otp-21/bin"
+
+alias brake='noglob bundle exec rake'
+alias :q='echo "this is not VI"; sleep 0.5; exit'
+
+# source ~/bin/set_proxy
+
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+
+. $(brew --prefix asdf)/asdf.sh
+. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
+
+# export PATH=~/.local/bin:/Users/sfairchild/.asdf/shims:/usr/local/opt/asdf/bin:/Users/sfairchild/bin:/usr/local/sbin:/usr/local/opt/openssl/bin:/Users/sfairchild/.local/bin:/usr/local/opt/qt/bin:/usr/local/opt/curl/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS:/usr/local/opt/fzf/bin:/Users/sfairchild/go/bin:/Users/sfairchild/.cabel/bin:/Users/sfairchild.asdf/installs/elixir/1.9.1-otp-21/bin
+
+# run this to toggle connecting to endpoints like AWS while hopping on and off the vpn
+function vpn() {
+    if [[ "${http_proxy}" == "" ]]; then
+        echo "Setting http_proxy"
+        export http_proxy=http://165.225.0.39:9400
+    else
+        echo "Un-Setting http_proxy"
+        unset http_proxy
+    fi
+    if [[ "${https_proxy}" == "" ]]; then
+        echo "Setting https_proxy"
+        export https_proxy=http://165.225.0.39:9400
+    else
+        echo "Un-Setting https_proxy"
+        unset https_proxy
+    fi
+    if [[ "${no_proxy}" == "" ]]; then
+        echo "Setting no_proxy"
+        # export no_proxy=localhost,127.0.0.1,chef.vwusasite.com,github.vwusasite.com
+        export no_proxy=localhost,127.0.0.1,chef.vwusasite.com,github.vwusasite.com,1E1D2D1DFAD6CBD1A00A15E10901AA95.sk1.us-west-2.eks.amazonaws.com,253BF845058E296248BCDE901A019CBC.yl4.us-west-2.eks.amazonaws.com,6296C41B010D2FC5801BBFA7766BE863.sk1.us-west-2.eks.amazonaws.com,59D21B7365E671BD3A616319E1EE7426.sk1.us-west-2.eks.amazonaws.com
+    else
+        echo "Un-Setting no_proxy"
+        unset no_proxy
+    fi
+}
+
+#AWSume alias to source the AWSume script
+# alias awsume=". awsume"
+alias awsume=". ~/.asdf/installs/python/3.8.0/bin/awsume"
+#Auto-Complete function for AWSume
+#Auto-Complete function for AWSume
+fpath=(~/.awsume/zsh-autocomplete/ $fpath)
 
