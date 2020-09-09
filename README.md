@@ -1,114 +1,27 @@
-macOS install
 
-# Install xcode
-```
-xcode-select --install
-```
+# My custom laptop setup script and files
+
+Used to quickly setup my new macOS laptop quickly. Feel free to copy/modify for your own use.
+
+Used influecne from:
+
+- [https://github.com/thoughtbot/laptop](https://github.com/thoughtbot/laptop)
+- [https://github.com/nicknisi/dotfiles](https://github.com/nicknisi/dotfiles)
+
+## Usage
+
+To get started simply run `$ ./setup.sh`
+
+Read below to first learn what is being install.
 
 
+## Script steps
 
+* Make a backup up the existing dotfiles in a directory under `<setup-script-root>/backups/<timestamp>`
+* Creates symlinks for all files in `<setup-script-root>/dotfiles` to `$HOME/<dotfile>`
+* Installs homebrew
+* Install all the homebrew dependencies and packages found in the Brewfile using `brew bundle`
 
-
-
-This is my collection for dotfiles. It is ever-evolving, feel free to copy/fork your own copies.
-
-I gratefully used inspiration from and copied the symlink script from https://github.com/michaeljsmalley/dotfiles
-
-
-## List of homebrew packages
-`$ brew ls -l1`
-apr
-apr-util
-autoconf
-automake
-avr-binutils
-avr-gcc@7
-avrdude
-cmake
-confuse
-coreutils
-cscope
-curl
-dfu-programmer
-dfu-util
-exercism
-fop
-freetype
-fwup
-fzf
-gcc-arm-none-eabi
-gdbm
-gettext
-git
-git-extras
-git-flow
-gmp
-go
-gradle
-icu4c
-imagemagick
-imagemagick@6
-jemalloc
-jpeg
-libarchive
-libelf
-libev
-libevent
-libftdi0
-libhid
-libmpc
-libpng
-libsodium
-libtermkey
-libtiff
-libtool
-libusb
-libusb-compat
-libuv
-libvterm
-libxml2
-libxslt
-libyaml
-little-cms2
-luajit
-lz4
-lzo
-macvim
-mpfr
-msgpack
-mysql
-neovim
-node
-openjpeg
-openssl
-pcre
-pcre2
-perl
-pkg-config
-postgresql
-python
-python@2
-qt
-rbenv
-rcm
-readline
-redis
-ruby
-ruby-build
-sqlite
-squashfs
-subversion
-tmux
-tree
-unibilium
-universal-ctags
-unixodbc
-utf8proc
-vim
-watchman
-webp
-wxmac
-xz
 
 `brew cask ls -1`
 docker
@@ -119,3 +32,30 @@ iterm2
 java
 java8
 qmk-toolbox
+||||||| (empty tree)
+=======
+# My custom laptop setup script and files
+
+Used to quickly setup my new macOS laptop quickly. Feel free to copy/modify for your own use.
+
+Used influecne from:
+
+- [https://github.com/thoughtbot/laptop](https://github.com/thoughtbot/laptop)
+- [https://github.com/nicknisi/dotfiles](https://github.com/nicknisi/dotfiles)
+
+## Usage
+
+To get started simply run `$ ./setup.sh`
+
+Read below to first learn what is being install.
+
+
+## Script steps
+
+* Make a backup up the existing dotfiles in a directory under `<setup-script-root>/backups/<timestamp>`
+* Creates symlinks for all files in `<setup-script-root>/dotfiles` to `$HOME/<dotfile>`
+* Installs homebrew
+* Install all the homebrew dependencies and packages found in the Brewfile using `brew bundle`
+
+
+>>>>>>> 9b972a1... update setup script to make backups and create symlinks
