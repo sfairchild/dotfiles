@@ -101,12 +101,35 @@ brew_bundle() {
   brew bundle --global
 }
 
+setup_asdf() {
+  # used for elixir install
+  KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-sctp --enable-smp-support --enable-threads --enable-kernel-poll --enable-wx --enable-darwin-64bit --with-ssl=$(which openssl)"
+
+  # used for nodeJS install
+  # bash -c '$ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
+  # export GNUPGHOME="${ASDF_DIR:-$HOME/.asdf}/keyrings/nodejs" && mkdir -p "$GNUPGHOME" && chmod 0700 "$GNUPGHOME"
+
+  # # Imports Node.js release team's OpenPGP keys to the keyring
+  # bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+  GNUPGHOME="${ASDF_DIR:-$HOME/.asdf}/keyrings/nodejs" && mkdir -p "$GNUPGHOME" && chmod 0700 "$GNUPGHOME"
+
+  # Imports Node.js release team's OpenPGP keys to the keyring
+  bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+
+while read -r l; do
+  a=(`echo $l`)
+  asdf plugin-add $a[1] $a[2]
+  asdf install $a[1] latest
+done < asdf-plugins
+}
 # link_file "Brewfile"
-# install_brew
-# brew_bundle
 
 # get_linkables
-link_files
+
+# link_files
+# install_brew
+# brew_bundle
+setup_asdf
 
 
 
