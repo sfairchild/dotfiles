@@ -122,14 +122,14 @@ while read -r l; do
   asdf install $a[1] latest
 done < asdf-plugins
 }
-# link_file "Brewfile"
 
-# get_linkables
+setup_omzsh() {
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+}
 
-# link_files
-# install_brew
-# brew_bundle
+link_files
+install_brew
+brew_bundle
 setup_asdf
-
-
+setup_omzsh
 
