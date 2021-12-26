@@ -1,61 +1,45 @@
 source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
-
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
 # looking in ~/.oh-my-zsh/themes/
 # An empty array have no effect
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
 # Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="true"
-
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
-
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
-
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
-
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
-
 # Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
-
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
-
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
-
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
-
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
-
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -94,36 +78,29 @@ plugins=(
   web-search
   zsh_reload
 )
-
 source $ZSH/oh-my-zsh.sh
-
 # User configuration
-
 export VIMCONFIG=~/.vim
 export VIMDATA=~/.vim
-
+export GPG_TTY=$(tty)
 alias vrc='vim ~/.vimrc'
 alias zrc='vim ~/.zshrc'
-
+alias reload='. ~/.zshrc'
+alias kx="kubectx"
 alias ctags="`brew --prefix`/bin/ctags"
 # export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -132,7 +109,6 @@ alias ctags="`brew --prefix`/bin/ctags"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
 # Add tmuxinator autocompletes
 # function rvm () {
 #   if [[ $1 == 'use' ]]; then
@@ -140,75 +116,49 @@ alias ctags="`brew --prefix`/bin/ctags"
 #   fi
 # }
 # source ~/.asdf/installs/ruby/2.6.1/lib/ruby/gems/2.6.0/gems/tmuxinator-0.15.0/completion/tmuxinator.zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/opt/curl/bin:$PATH"
-
 # eval "$(rbenv init -)"
-
 autoload -Uz compinit && compinit
-
-
 # Go development
-
 export GOPATH="${HOME}/go"
 # export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin"
-
 export PATH="$PATH:$HOME/.cabel/bin"
-
 # set the default editor
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-
 alias vim="nvim"
 alias vi="nvim"
-
 # Reduces binding (ESC) timeout from .4ms to .1ms
 export KEYTIMEOUT=1
-
 export PATH="/usr/local/opt/qt/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-
 # For compilers to find qt you may need to set:
 export LDFLAGS="-L/usr/local/opt/qt/lib"
 export CPPFLAGS="-I/usr/local/opt/qt/include"
-
 # For pkg-config to find qt you may need to set:
 export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig"
-
 if [ -f ~/.private_env_vars ]; then
   source ~/.private_env_vars
 else
   print "ERROR: File ~/.private_env_vars does not exist"
 fi
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 export KERL_CONFIGURE_OPTIONS="--disable-debug --disable-silent-rules --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-sctp --enable-smp-support --enable-threads --enable-kernel-poll --enable-wx --enable-darwin-64bit --with-ssl=/usr/local/Cellar/openssl/1.0.2q"
-
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="${HOME}/bin:$PATH"
-
 export PATH="${PATH}:${HOME}.asdf/installs/elixir/1.9.1-otp-21/bin"
-
 alias brake='noglob bundle exec rake'
 alias :q='echo "this is not VI"; sleep 0.5; exit'
-
 # source ~/bin/set_proxy
-
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=10000000
 export SAVEHIST=10000000
-
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-
 . $(brew --prefix asdf)/asdf.sh
 . $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
-
 # export PATH=~/.local/bin:/Users/sfairchild/.asdf/shims:/usr/local/opt/asdf/bin:/Users/sfairchild/bin:/usr/local/sbin:/usr/local/opt/openssl/bin:/Users/sfairchild/.local/bin:/usr/local/opt/qt/bin:/usr/local/opt/curl/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS:/usr/local/opt/fzf/bin:/Users/sfairchild/go/bin:/Users/sfairchild/.cabel/bin:/Users/sfairchild.asdf/installs/elixir/1.9.1-otp-21/bin
-
 # run this to toggle connecting to endpoints like AWS while hopping on and off the vpn
 function vpn() {
     if [[ "${http_proxy}" == "" ]]; then
@@ -234,12 +184,54 @@ function vpn() {
         unset no_proxy
     fi
 }
-
 #AWSume alias to source the AWSume script
 # alias awsume=". awsume"
 alias awsume=". ~/.asdf/installs/python/3.8.0/bin/awsume"
 #Auto-Complete function for AWSume
-#Auto-Complete function for AWSume
 fpath=(~/.awsume/zsh-autocomplete/ $fpath)
-
 . /usr/local/share/zsh/site-functions
+fpath=(/usr/local/share/zsh/site-functions $fpath)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+function fp() {
+  ### PATH
+  # mnemonic: [F]ind [P]ath
+  # list directories in $PATH, press [enter] on an entry to list the executables inside.
+  # press [escape] to go back to directory listing, [escape] twice to exit completely
+  local loc=$(echo $PATH | sed -e $'s/:/\\\n/g' | eval "fzf ${FZF_DEFAULT_OPTS} --header='[find:path]'")
+  if [[ -d $loc ]]; then
+    echo "$(rg --files $loc | rev | cut -d"/" -f1 | rev)" | eval "fzf ${FZF_DEFAULT_OPTS} --header='[find:exe] => ${loc}' >/dev/null"
+    fp
+  fi
+}
+export ADMIN_LANID=s3ffadmin
+function saml_aws () {
+  local old_profile=$AWS_PROFILE
+  unset AWS_PROFILE
+  python ~/pge/aws-auth-saml-federation-cli/samlapi.py -u $ADMIN_LANID
+  if [ $# -gt 0 ]; then
+    export AWS_PROFILE=$1
+  elif [ ! -z "${old_profile}" ]; then
+    export AWS_PROFILE=${old_profile}
+  fi
+}
+function authgrunt() {
+  if [[ -z $AWS_PROFILE ]]; then
+    echo "Please set AWS_PROFILE"
+    return 1
+  fi
+  local role_arn=$(aws configure get role_arn)
+  export CREDS=$(aws sts assume-role --role-arn ${role_arn} --role-session-name AWSCLI-Session --duration-seconds 3600)
+  export AWS_ACCESS_KEY_ID="$(echo $CREDS | jq -r .Credentials.AccessKeyId)"
+  export AWS_SECRET_ACCESS_KEY="$(echo $CREDS | jq -r .Credentials.SecretAccessKey)"
+  export AWS_SESSION_TOKEN="$(echo $CREDS | jq -r .Credentials.SessionToken)"
+  export AWS_CA_BUNDLE=~/.aws/pge-aws-cert-bundle.pem
+}
+function unset_authgrunt() {
+  unset AWS_ACCESS_KEY_ID
+  unset AWS_SECRET_ACCESS_KEY
+  unset AWS_SESSION_TOKEN
+  unset AWS_CA_BUNDLE
+}
+export PATH=$PATH:/Applications/Couchbase\ Server.app/Contents/Resources/couchbase-core/bin
+export NODE_EXTRA_CA_CERTS=/Users/S3FF/.aws/pge-aws-cert-bundle.pem
+export PAGER=''

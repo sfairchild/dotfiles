@@ -1,32 +1,67 @@
-set encoding=utf-8
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-set rtp+=/usr/local/opt/fzf
+let mapleader = " "
+set noswapfile
 
-set t_Co=256
-set number
-set relativenumber
-set mouse=a
-set hidden
-let nerdtreeshowhidden=1
-set tabstop=2 shiftwidth=2 expandtab
+call plug#begin(stdpath('data') . '/plugged')
 
-set splitbelow
-set splitright
+" COC LS completions
+" Use release branch (recommend)
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+" Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
 
-call plug#begin('~/.vim/plugged')
+" Telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" Gruvbox
+Plug 'morhetz/gruvbox'
+
+" Buffer Delete
+Plug 'qpkorr/vim-bufkill'
+
+" Prettier
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+
+" nvim treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 
 " VIM practice plugin
 Plug 'ThePrimeagen/vim-be-good'
+
+" cht.sh <leader>kk
+Plug 'dbeniamine/cheat.sh-vim'
 
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-commentary'
+
+autocmd FileType terraform setlocal commentstring=#\ %s
+
+Plug 'hashivim/vim-terraform'
+autocmd FileType terraform autocmd BufWritePre <buffer> :TerraformFmt
 
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
@@ -35,8 +70,11 @@ Plug 'tpope/vim-endwise'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-Plug 'junegunn/fzf.vim'
+Plug 'vim-test/vim-test'
 
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'ThePrimeagen/git-worktree.nvim'
 " Using floating windows of Neovim to start fzf
 " if has('nvim')
 "   let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2'
@@ -64,7 +102,7 @@ Plug 'wokalski/autocomplete-flow'
 Plug 'thalesmello/webcomplete.vim'
 
 Plug 'Shougo/neoinclude.vim'
-Plug 'tpope/vim-scriptease', {'type': 'opt'}
+" Plug 'tpope/vim-scriptease', {'type': 'opt'}
 Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sotte/presenting.vim'
@@ -83,8 +121,11 @@ Plug 'slashmili/alchemist.vim'
 Plug 'othree/yajs.vim'
 Plug 'mhartington/oceanic-next'
 
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'nanotech/jellybeans.vim'
+Plug 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0
+
+" Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'nanotech/jellybeans.vim'
 
 " ruby plugins
 Plug 'hwartig/vim-seeing-is-believing'
@@ -95,17 +136,17 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " typescript support
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'HerringtonDarkholme/deoplete-typescript'
+" Plug 'HerringtonDarkholme/deoplete-typescript'
 Plug 'Quramy/tsuquyomi'
 
-if has('nvim')
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+" if has('nvim')
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
 
 Plug 'martinda/Jenkinsfile-vim-syntax'
 
@@ -174,8 +215,8 @@ endfunction
 "   \ }
 "   \})
 
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet-snippets'
 
 " git plugins
 Plug 'tpope/vim-fugitive'
@@ -189,16 +230,13 @@ Plug 'vim-airline/vim-airline-themes'
 
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=1
-set laststatus=2
 
 " view indentation in buffers
 Plug 'Yggdroot/indentLine'
 let g:indentLine_enabled = 1
 let g:indentLine_char = "⟩"
-set list
-set listchars=tab:-\|
 
-Plug 'gregsexton/MatchTag'
+" Plug 'gregsexton/MatchTag'
 
 " ctrl-p for fuzzy finding
 Plug 'ctrlpvim/ctrlp.vim'
@@ -220,7 +258,6 @@ Plug 'jeetsukumaran/vim-indentwise'
 
 " handle saving folds/settings between sessions
 Plug 'zhimsel/vim-stay'
-set viewoptions=cursor,folds,slash,unix
 
 " create/list gists within vim
 Plug 'mattn/webapi-vim'
@@ -240,37 +277,29 @@ let g:firenvim_config = {
 
 call plug#end()
 
-let g:user_emmet_settings = {
-      \  'javascript' : {
-      \      'extends' : 'jsx',
-      \  },
-      \  'markdown' : {
-      \      'extends' : 'md',
-      \  },
-      \  'elixir' : {
-      \      'extends' : 'eex',
-      \  },
-      \}
+" let g:user_emmet_settings = {
+"       \  'javascript' : {
+"       \      'extends' : 'jsx',
+"       \  },
+"       \  'markdown' : {
+"       \      'extends' : 'md',
+"       \  },
+"       \  'elixir' : {
+"       \      'extends' : 'eex',
+"       \  },
+"       \}
 
-" autocmd BufWritePost *.js AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
-" autocmd BufWritePost *.jsx AsyncRun -post=checktime ./node_modules/.bin/eslint --fix %
-
-augroup ProjectSetup
-  au BufRead,BufEnter ~/Sites/hawkeye-manager-ui/* set noexpandtab
-augroup END
-
-let g:deoplete#sources#ternjs#filetypes = [
-      \ 'jsx',
-      \ 'javascript.jsx',
-      \ 'vue',
-      \ '...'
-      \ ]
+" let g:deoplete#sources#ternjs#filetypes = [
+"       \ 'jsx',
+"       \ 'javascript.jsx',
+"       \ 'vue',
+"       \ '...'
+"       \ ]
 
 
 " Enable plugins
-let g:deoplete#enable_at_startup=1
-autocmd FileType markdown let g:deoplete#enable_at_startup=0
-set updatetime=250 "for vim gitgutter
+" let g:deoplete#enable_at_startup=1
+" autocmd FileType markdown let g:deoplete#enable_at_startup=0
 
 " NeoSnippets
 " Plugin key-mappings.
@@ -287,11 +316,6 @@ imap <expr><TAB>
 smap <expr><TAB>
 \ neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
 
 silent! nmap <leader>n :NERDTreeToggle<CR>
 silent! nmap <leader>N :NERDTreeFind<CR>
@@ -318,7 +342,7 @@ let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'ruby', 'javascr
 fun! TrimWhiteSpace()
     %s/\s\+$//e
 endfun
-autocmd FileType c,cpp,java,elixir,ruby,python,javascript autocmd BufWritePre <buffer> :call TrimWhiteSpace()
+autocmd FileType c,cpp,java,elixir,ruby,python,javascript,terraform autocmd BufWritePre <buffer> :call TrimWhiteSpace()
 
 " Enable seeing-is-believing mappings only for Ruby
 augroup seeingIsBelievingSettings
@@ -336,7 +360,7 @@ augroup seeingIsBelievingSettings
 augroup END
 
 syntax on
-color jellybeans
+" color jellybeans
 " color dracula
 
 " Handle trailing whitespace
@@ -355,10 +379,10 @@ nnoremap <Right> :vertical resize +1<CR>
 nnoremap <Up> :resize -1<CR>
 nnoremap <Down> :resize +1<CR>
 " Disable arrow keys completely in Insert Mode
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
+" imap <up> <nop>
+" imap <down> <nop>
+" imap <left> <nop>
+" imap <right> <nop>
 
 " use Alt-, or Alt-. to just to line with same indent level
 nnoremap <M-,> :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%<' . line('.') . 'l\S', 'be')<CR>
@@ -373,4 +397,5 @@ endfunction
 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<CR>
