@@ -11,8 +11,9 @@ call plug#begin(stdpath('data') . '/plugged')
 
 " COC LS completions
 " Use release branch (recommend)
-Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+" Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 " Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
@@ -22,10 +23,21 @@ Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'} " mru and stuff
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'} " color highlighting
 
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
 " Telescope
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+
+" Telescope bindings
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<CR>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<CR>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fr <cmd>lua require('telescope.builtin').registers()<cr>
+nnoremap <leader>fts <cmd>lua require('telescope.builtin').treesitter()<cr>
 
 " Gruvbox
 Plug 'morhetz/gruvbox'
@@ -36,7 +48,7 @@ Plug 'qpkorr/vim-bufkill'
 " Prettier
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html', 'python'] }
 
 " nvim treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -63,10 +75,10 @@ autocmd FileType terraform setlocal commentstring=#\ %s
 Plug 'hashivim/vim-terraform'
 autocmd FileType terraform autocmd BufWritePre <buffer> :TerraformFmt
 
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-bundler'
-Plug 'vim-ruby/vim-ruby'
+" Adds auto completion of 'end' for good languages
+" https://github.com/tpope/vim-endwise
 Plug 'tpope/vim-endwise'
+
 Plug 'skywind3000/asyncrun.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
@@ -110,12 +122,16 @@ Plug 'inkarkat/vim-SyntaxRange'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'vim-scripts/SyntaxRange'
 
+" Adds command
+" :%Subvert/facilit{y,ies}/building{,s}/g
+" https://github.com/tpope/vim-abolish
 Plug 'tpope/vim-abolish'
-Plug 'junegunn/vader.vim'
-" Plug 'gabrielelana/vim-markdown'
-Plug 'lucasteles/SWTC.Vim'
-Plug 'dahu/vim-rng'
+
+" Allow completions using <tab> key
+" https://github.com/ervandew/supertab
+" :help supertab
 Plug 'ervandew/supertab'
+
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 Plug 'othree/yajs.vim'
@@ -129,6 +145,9 @@ let g:vim_json_syntax_conceal = 0
 
 " ruby plugins
 Plug 'hwartig/vim-seeing-is-believing'
+Plug 'tpope/vim-rails'
+" Plug 'tpope/vim-bundler'
+Plug 'vim-ruby/vim-ruby'
 
 " Plug 'https://github.com/trapd00r/vimpoint'
 
@@ -222,7 +241,7 @@ endfunction
 Plug 'tpope/vim-fugitive'
 Plug 'idanarye/vim-merginal'
 Plug 'airblade/vim-gitgutter'
-nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>g :Git<CR>:echon ''<CR>
 
 " vim airline for status bar
 Plug 'vim-airline/vim-airline'
@@ -231,16 +250,23 @@ Plug 'vim-airline/vim-airline-themes'
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=1
 
-" view indentation in buffers
-Plug 'Yggdroot/indentLine'
-let g:indentLine_enabled = 1
-let g:indentLine_char = "⟩"
+" " view indentation in buffers
+" Plug 'Yggdroot/indentLine'
+" " let g:indentLine_enabled = 1
+" " let g:indentLine_char = "⟩"
+" " let g:indentLine_fileTypeExclude = ['typescript']
+" let g:indentLine_setConceal = 0
+" " let g:indentLine_concealcursor = ''
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+" indent level movement
+Plug 'jeetsukumaran/vim-indentwise'
 
 " Plug 'gregsexton/MatchTag'
 
 " ctrl-p for fuzzy finding
-Plug 'ctrlpvim/ctrlp.vim'
-nnoremap <Leader>p :CtrlP<CR>
+" Plug 'ctrlpvim/ctrlp.vim'
+" nnoremap <Leader>p :CtrlP<CR>
 
 " use ag/silver searcher for searching in files
 Plug 'mhinz/vim-grepper'
@@ -254,7 +280,7 @@ Plug 'tpope/vim-apathy'
 Plug 'mileszs/ack.vim'
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-Plug 'jeetsukumaran/vim-indentwise'
+Plug 'Shatur/neovim-session-manager'
 
 " handle saving folds/settings between sessions
 Plug 'zhimsel/vim-stay'
@@ -274,6 +300,9 @@ let g:firenvim_config = {
         \ }
     \ }
 \ }
+
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
 
 call plug#end()
 
@@ -319,7 +348,7 @@ smap <expr><TAB>
 
 silent! nmap <leader>n :NERDTreeToggle<CR>
 silent! nmap <leader>N :NERDTreeFind<CR>
-silent! nmap <leader>f :Files<CR>
+" silent! nmap <leader>f :Files<CR>
 
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
@@ -374,19 +403,15 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 " use arrow keys to resize panes
-nnoremap <Left> :vertical resize -1<CR>
-nnoremap <Right> :vertical resize +1<CR>
-nnoremap <Up> :resize -1<CR>
-nnoremap <Down> :resize +1<CR>
+nnoremap <Left> :vertical resize -1<CR>:echon ''<CR>
+nnoremap <Right> :vertical resize +1<CR>:echon ''<CR>
+nnoremap <Up> :resize -1<CR>:echon ''<CR>
+nnoremap <Down> :resize +1<CR>:echon ''<CR>
 " Disable arrow keys completely in Insert Mode
 " imap <up> <nop>
 " imap <down> <nop>
 " imap <left> <nop>
 " imap <right> <nop>
-
-" use Alt-, or Alt-. to just to line with same indent level
-nnoremap <M-,> :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%<' . line('.') . 'l\S', 'be')<CR>
-nnoremap <M-.> :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%>' . line('.') . 'l\S', 'e')<CR>
 
 " command -nargs=1 Vsb call VsbFunction(<f-args>)
 
@@ -394,8 +419,7 @@ function VsbFunction (arg1)
   execute 'vert sb' a:arg1
 endfunction
 
+autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<CR>

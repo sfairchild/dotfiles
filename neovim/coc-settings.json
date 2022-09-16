@@ -10,6 +10,8 @@
 			"settings": {}
 		}
 	},
-  "javascript.suggestionActions.enabled": false
+  "javascript.suggestionActions.enabled": false,
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact"],
+  "coc.preferences.useQuickfixForLocations": true
 }
 
