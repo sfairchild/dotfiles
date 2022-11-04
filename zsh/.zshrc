@@ -241,3 +241,5 @@ export SAVEHIST=$HISTSIZE
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
 [[ -f $HOME/.aws/functions.sh ]] && source $HOME/.aws/functions.sh
+
+alias emacs='$(/Applications/Emacs.app/Contents/MacOS/Emacs -nw)'

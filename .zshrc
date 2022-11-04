@@ -1,0 +1,1 @@
+/Users/S3FF/dotfiles/zsh/.zshrc
