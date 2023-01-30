@@ -6,126 +6,202 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
-  vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
-  vim.cmd [[packadd packer.nvim]]
+-- -- Install packer
+-- local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+-- local is_bootstrap = false
+-- if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+--   is_bootstrap = true
+--   vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
+--   vim.cmd [[packadd packer.nvim]]
+-- end
+--
+-- local packer = require('packer')
+--
+-- packer.init({
+--   -- display = { open_fn = require("packer.util").float },
+--   max_jobs = 5,
+--   -- clone_timeout = false,
+--   insecure_connection = true
+-- })
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
-
-local packer = require('packer')
-
-packer.init({
-  -- display = { open_fn = require("packer.util").float },
-  max_jobs = 5,
-  -- clone_timeout = false,
-  insecure_connection = true
-})
+vim.opt.rtp:prepend(lazypath)
 
 require('sfairchild')
 
-packer.startup(function(use)
+require("lazy").setup({
   -- Package manager
-  use 'wbthomason/packer.nvim'
+  'wbthomason/packer.nvim',
 
-  use { -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    requires = {
-      -- Automatically install LSPs to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+  { -- LSP Configuration & Plugins,
+  'neovim/nvim-lspconfig',
+  dependencies = {
+    -- Automatically install LSPs to stdpath for neovim
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
+    -- Useful status updates for LSP
+    'j-hui/fidget.nvim',
 
-      -- Additional lua configuration, makes nvim stuff amazing
-      'folke/neodev.nvim',
-    },
-  }
+    -- Additional lua configuration, makes nvim stuff amazing
+    'folke/neodev.nvim',
+  },
+},
 
-  use({"L3MON4D3/LuaSnip", tag = "v1.1.0"})
+{
+  "L3MON4D3/LuaSnip",
+  name = "luasnip",
+  tag = "v1.1.0"
+},
 
-  use { -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  }
+{ -- Autocompletion
+'hrsh7th/nvim-cmp',
+dependencies = { 'hrsh7th/cmp-nvim-lsp', 'luasnip', 'saadparwaiz1/cmp_luasnip' },
+-- config = function()
+--   -- nvim-cmp setup
+--   local cmp = require 'cmp'
+--   local luasnip = require 'luasnip'
+-- 
+--   cmp.setup {
+--     snippet = {
+--       expand = function(args)
+--         luasnip.lsp_expand(args.body)
+--       end,
+--     },
+--     mapping = cmp.mapping.preset.insert {
+--       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+--       ['<C-f>'] = cmp.mapping.scroll_docs(4),
+--       ['<C-Space>'] = cmp.mapping.complete(),
+--       ['<CR>'] = cmp.mapping.confirm {
+--         behavior = cmp.ConfirmBehavior.Replace,
+--         select = true,
+--       },
+--       ['<Tab>'] = cmp.mapping(function(fallback)
+--         if cmp.visible() then
+--           cmp.select_next_item()
+--         elseif luasnip.expand_or_jumpable() then
+--           luasnip.expand_or_jump()
+--         else
+--           fallback()
+--         end
+--       end, { 'i', 's' }),
+--       ['<S-Tab>'] = cmp.mapping(function(fallback)
+--         if cmp.visible() then
+--           cmp.select_prev_item()
+--         elseif luasnip.jumpable(-1) then
+--           luasnip.jump(-1)
+--         else
+--           fallback()
+--         end
+--       end, { 'i', 's' }),
+--     },
+--     sources = {
+--       { name = 'nvim_lsp' },
+--       { name = 'luasnip' },
+--     },
+--   }
+-- 
+-- 
+-- end 
+  },
 
-  use { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
-  }
+  { -- Highlight, edit, and navigate code
+  'nvim-treesitter/nvim-treesitter',
+  -- build = function()
+    -- pcall(require('nvim-treesitter.install').update { with_sync = true })
+  -- end,
+},
 
-  use({
-    'rose-pine/neovim',
-    as = 'rose-pine'
-  })
+{
+  'rose-pine/neovim',
+  name = 'rose-pine'
+},
 
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
+ -- Additional text objects via treesitter
+--  {
+--    'nvim-treesitter/nvim-treesitter-textobjects',
+ -- },
 
- -- Git related plugins
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'lewis6991/gitsigns.nvim'
+  -- Git related plugins
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+  'lewis6991/gitsigns.nvim',
 
-  use { 'navarasu/onedark.nvim', as = 'onedark' } -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  { 'navarasu/onedark.nvim', name = 'onedark' }, -- Theme inspired by Atom
+  'nvim-lualine/lualine.nvim', -- Fancier statusline
+  'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
+  {
+    'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
+--    config = function()
+ --     require('Comment').setup()
+  --  end,
+  },
+  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-  use 'nvim-telescope/telescope-file-browser.nvim'
+  { 
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim', 'telescope-fzf', 'telescope-file-browser', },
+    config = function()
+      -- Enable telescope fzf native, if installed
+      pcall(require('telescope').load_extension, 'fzf')
+      pcall(require("telescope").load_extension "file_browser")
+    end,
+  },
+  {'nvim-telescope/telescope-file-browser.nvim', name = 'telescope-file-browser',},
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+  { 'nvim-telescope/telescope-fzf-native.nvim', name = 'telescope-fzf', build = 'make', cond = vim.fn.executable 'make' == 1 },
 
-  -- use { 'preservim/nerdtree' }
-  use {
+  {
     'nvim-tree/nvim-tree.lua',
-    requires = {
+    dependencies = {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
-  }
+  },
   -- WhichKey for displaying keymaps
-  use {
-  "folke/which-key.nvim",
-  config = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 300
-    require("which-key").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
-  end
-}
+  {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  },
 
-  use 'tpope/vim-surround' -- make brackets better
-  use 'tpope/vim-endwise' -- Add end after do plus more
-  use 'tpope/vim-repeat' -- Make . even more powerful
-  use 'tpope/vim-unimpaired' -- Adds nice functions mostly around [ and :
+  'tpope/vim-surround', -- make brackets better
+  'tpope/vim-endwise', -- Add end after do plus more
+  'tpope/vim-repeat', -- Make . even more powerful
+  'tpope/vim-unimpaired', -- Adds nice functions mostly around [ and :
 
-  use 'akinsho/bufferline.nvim'
+  'akinsho/bufferline.nvim',
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
-  local has_plugins, plugins = pcall(require, 'custom.plugins')
-  if has_plugins then
-    plugins(use)
-  end
-
-  if is_bootstrap then
-    require('packer').sync()
-  end
-end)
+  -- local has_plugins, plugins = pcall(require, 'custom.plugins')
+  -- if has_plugins then
+  --   plugins(use)
+  -- end
+  --
+  -- if is_bootstrap then
+  --   require('packer').sync()
+  -- end
+})
 
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
@@ -225,8 +301,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- Enable Comment.nvim
-require('Comment').setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
@@ -246,10 +320,6 @@ require('gitsigns').setup {
     changedelete = { text = '~' },
   },
 }
-
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
-pcall(require("telescope").load_extension "file_browser")
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -370,50 +440,6 @@ mason_lspconfig.setup_handlers {
 
 -- Turn on lsp status information
 require('fidget').setup()
-
--- nvim-cmp setup
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
-
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
