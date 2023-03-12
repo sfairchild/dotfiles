@@ -72,6 +72,7 @@ ZSH_THEME="gruvbox"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   asdf
+  aws
   brew
   git
   fzf
@@ -110,6 +111,8 @@ source $ZSH/oh-my-zsh.sh
 
 alias vi=nvim
 alias v=nvim
+alias zshrc="vi ~/.zshrc"
+alias vimrc="vi ~/.config/nvim/init.lua"
 
 alias kx=kubectx
 
