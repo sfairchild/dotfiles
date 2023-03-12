@@ -1,0 +1,117 @@
+
+
+
+s  <Tab>       * <Lua 163: ~/.local/share/nvim/site/pack/packer/start/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+n  <Space>q    * <Lua 44: /usr/local/Cellar/neovim/0.8.1/share/nvim/runtime/lua/vim/diagnostic.lua:1453>
+n  <Space>e    * <Lua 43: /usr/local/Cellar/neovim/0.8.1/share/nvim/runtime/lua/vim/diagnostic.lua:1237>
+n  <Space>sd   * <Lua 40: ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/builtin/init.lua:478>
+                 [S]earch [D]iagnostics
+n  <Space>sg   * <Lua 39: ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/builtin/init.lua:478>
+                 [S]earch by [G]rep
+n  <Space>sw   * <Lua 38: ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/builtin/init.lua:478>
+                 [S]earch current [W]ord
+n  <Space>sh   * <Lua 37: ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/builtin/init.lua:478>
+                 [S]earch [H]elp
+n  <Space>sf   * <Lua 36: ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/builtin/init.lua:478>
+                 [S]earch [F]iles
+n  <Space>/    * <Lua 35: ~/dotfiles/nvim/init.lua:229>
+                 [/] Fuzzily search in current buffer]
+n  <Space><Space> * <Lua 34: ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/builtin/init.lua:478>
+                 [ ] Find existing buffers
+n  <Space>?    * <Lua 29: ~/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua/telescope/builtin/init.lua:478>
+                 [?] Find recently opened files
+v  <Space>     * <Nop>
+n  <Space>     * <Nop>
+x  #           * y?\V<C-R>"<CR>
+                 Nvim builtin
+o  %             <Plug>(MatchitOperationForward)
+x  %             <Plug>(MatchitVisualForward)
+n  %             <Plug>(MatchitNormalForward)
+n  &           * :&&<CR>
+                 Nvim builtin
+x  *           * y/\V<C-R>"<CR>
+                 Nvim builtin
+n  Y           * y$
+                 Nvim builtin
+o  [%            <Plug>(MatchitOperationMultiBackward)
+x  [%            <Plug>(MatchitVisualMultiBackward)
+n  [%            <Plug>(MatchitNormalMultiBackward)
+n  [d          * <Lua 41: /usr/local/Cellar/neovim/0.8.1/share/nvim/runtime/lua/vim/diagnostic.lua:814>
+o  ]%            <Plug>(MatchitOperationMultiForward)
+x  ]%            <Plug>(MatchitVisualMultiForward)
+n  ]%            <Plug>(MatchitNormalMultiForward)
+n  ]d          * <Lua 42: /usr/local/Cellar/neovim/0.8.1/share/nvim/runtime/lua/vim/diagnostic.lua:859>
+x  a%            <Plug>(MatchitVisualTextObject)
+x  gx            <Plug>NetrwBrowseXVis
+n  gx            <Plug>NetrwBrowseX
+o  g%            <Plug>(MatchitOperationBackward)
+x  g%            <Plug>(MatchitVisualBackward)
+n  g%            <Plug>(MatchitNormalBackward)
+n  gcA         * <Lua 19: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/api.lua:218>
+                 Comment insert end of line
+n  gcO         * <Lua 18: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/api.lua:179>
+                 Comment insert above
+n  gco         * <Lua 17: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/api.lua:182>
+                 Comment insert below
+x  gb          * <Plug>(comment_toggle_blockwise_visual)
+                 Comment toggle blockwise (visual)
+x  gc          * <Plug>(comment_toggle_linewise_visual)
+                 Comment toggle linewise (visual)
+n  gbc         * <Lua 16: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/init.lua:107>
+                 Comment toggle current block
+n  gcc         * <Lua 15: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/init.lua:103>
+                 Comment toggle current line
+n  gb          * <Plug>(comment_toggle_blockwise)
+                 Comment toggle blockwise
+n  gc          * <Plug>(comment_toggle_linewise)
+                 Comment toggle linewise
+n  j           * v:count == 0 ? 'gj' : 'j'
+n  k           * v:count == 0 ? 'gk' : 'k'
+n  y<C-G>      & :<C-U>call setreg(v:register, fugitive#Object(@%))<CR>
+s  <S-Tab>     * <Lua 145: ~/.local/share/nvim/site/pack/packer/start/nvim-cmp/lua/cmp/utils/keymap.lua:127>
+                 cmp.utils.keymap.set_map
+n  <Plug>fugitive: & <Nop>
+n  <Plug>fugitive:y<C-G> & :<C-U>call setreg(v:register, fugitive#Object(@%))<CR>
+n  <Plug>PlenaryTestFile * :lua require('plenary.test_harness').test_directory(vim.fn.expand("%:p"))<CR>
+s  <Plug>luasnip-jump-prev * <Cmd>lua require'luasnip'.jump(-1)<CR>
+s  <Plug>luasnip-jump-next * <Cmd>lua require'luasnip'.jump(1)<CR>
+s  <Plug>luasnip-prev-choice * <Cmd>lua require'luasnip'.change_choice(-1)<CR>
+s  <Plug>luasnip-next-choice * <Cmd>lua require'luasnip'.change_choice(1)<CR>
+s  <Plug>luasnip-expand-snippet * <Cmd>lua require'luasnip'.expand()<CR>
+s  <Plug>luasnip-expand-or-jump * <Cmd>lua require'luasnip'.expand_or_jump()<CR>
+   <Plug>luasnip-expand-repeat * <Cmd>lua require'luasnip'.expand_repeat()<CR>
+   <Plug>luasnip-delete-check * <Cmd>lua require'luasnip'.unlink_current_if_deleted()<CR>
+x  <Plug>(comment_toggle_blockwise_visual) * <Esc><Cmd>lua require("Comment.api").locked("toggle.blockwise")(vim.fn.visualmode())<CR>
+                 Comment toggle blockwise (visual)
+x  <Plug>(comment_toggle_linewise_visual) * <Esc><Cmd>lua require("Comment.api").locked("toggle.linewise")(vim.fn.visualmode())<CR>
+                 Comment toggle linewise (visual)
+n  <Plug>(comment_toggle_blockwise_count) * <Lua 87: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/api.lua:246>
+                 Comment toggle blockwise with count
+n  <Plug>(comment_toggle_linewise_count) * <Lua 86: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/api.lua:246>
+                 Comment toggle linewise with count
+n  <Plug>(comment_toggle_blockwise_current) * <Lua 85: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/api.lua:246>
+                 Comment toggle current block
+n  <Plug>(comment_toggle_linewise_current) * <Lua 84: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/api.lua:246>
+                 Comment toggle current line
+n  <Plug>(comment_toggle_blockwise) * <Lua 25: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/api.lua:246>
+                 Comment toggle blockwise
+n  <Plug>(comment_toggle_linewise) * <Lua 30: ~/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua/Comment/api.lua:246>
+                 Comment toggle linewise
+x  <Plug>NetrwBrowseXVis * :<C-U>call netrw#BrowseXVis()<CR>
+n  <Plug>NetrwBrowseX * :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))<CR>
+x  <Plug>(MatchitVisualTextObject)   <Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)
+o  <Plug>(MatchitOperationMultiForward) * :<C-U>call matchit#MultiMatch("W",  "o")<CR>
+o  <Plug>(MatchitOperationMultiBackward) * :<C-U>call matchit#MultiMatch("bW", "o")<CR>
+x  <Plug>(MatchitVisualMultiForward) * :<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv``
+x  <Plug>(MatchitVisualMultiBackward) * :<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv``
+n  <Plug>(MatchitNormalMultiForward) * :<C-U>call matchit#MultiMatch("W",  "n")<CR>
+n  <Plug>(MatchitNormalMultiBackward) * :<C-U>call matchit#MultiMatch("bW", "n")<CR>
+o  <Plug>(MatchitOperationBackward) * :<C-U>call matchit#Match_wrapper('',0,'o')<CR>
+o  <Plug>(MatchitOperationForward) * :<C-U>call matchit#Match_wrapper('',1,'o')<CR>
+x  <Plug>(MatchitVisualBackward) * :<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv``
+x  <Plug>(MatchitVisualForward) * :<C-U>call matchit#Match_wrapper('',1,'v')<CR>:if col("''") != col("$") | exe ":normal! m'" | endif<CR>gv``
+n  <Plug>(MatchitNormalBackward) * :<C-U>call matchit#Match_wrapper('',0,'n')<CR>
+n  <Plug>(MatchitNormalForward) * :<C-U>call matchit#Match_wrapper('',1,'n')<CR>
+n  <C-L>       * <Cmd>nohlsearch|diffupdate|normal! <C-L><CR>
+                 Nvim builtin

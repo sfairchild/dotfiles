@@ -58,6 +58,7 @@ packer.startup(function(use)
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   }
+  use 'nvim-treesitter/playground'
 
   use({
     'rose-pine/neovim',
@@ -119,6 +120,8 @@ packer.startup(function(use)
   use {
     "windwp/nvim-autopairs",
   }
+
+  use 'mbbill/undotree'
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -426,6 +429,9 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
+-- disable swapfiles
+vim.opt.swapfile = false
+
 vim.keymap.set('n', '<leader>h', "<C-w>h", {desc = "Move to left window"})
 vim.keymap.set('n', '<leader>j', "<C-w>j", {desc = "Move to bottom window"})
 vim.keymap.set('n', '<leader>k', "<C-w>k", {desc = "Move to top window"})
@@ -452,6 +458,41 @@ npairs.add_rules({
   Rule("$", "$", "lua")
     :with_pair(ts_conds.is_not_ts_node({'function'}))
 })
+
+
+-- terraform settings
+vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
+vim.cmd([[autocmd BufRead,BufNewFile *.hcl set filetype=hcl]])
+vim.cmd([[autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl]])
+vim.cmd([[autocmd BufRead,BufNewFile *.tf,*.tfvars* set filetype=terraform]])
+vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
+vim.cmd([[let g:terraform_fmt_on_save=1]])
+vim.cmd([[let g:terraform_align=1]])
+require'lspconfig'.terraformls.setup{}
+require'lspconfig'.tflint.setup{}
+
+require "nvim-treesitter.configs".setup {
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  }
+}
+
+vim.keymap.set('n', 'gx', [[:execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>]] )
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

@@ -1,0 +1,6 @@
+backup_files
+iterm2
+neovim
+old
+scripts
+zsh

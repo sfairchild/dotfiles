@@ -532,6 +532,8 @@
 					<string>[1;5F</string>
 				</dict>
 			</dict>
+			<key>Left Option Key Changeable</key>
+			<false/>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -543,7 +545,7 @@
 			<key>Normal Font</key>
 			<string>Monaco 12</string>
 			<key>Option Key Sends</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>Prompt Before Closing 2</key>
 			<false/>
 			<key>Right Option Key Sends</key>
@@ -1332,6 +1334,8 @@
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
 	<false/>
+	<key>PMPrintingExpandedStateForPrint2</key>
+	<false/>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1365,6 +1369,8 @@
 			<string>kNextWindowPointerAction</string>
 		</dict>
 	</dict>
+	<key>Print In Black And White</key>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>TerminalMargin</key>
