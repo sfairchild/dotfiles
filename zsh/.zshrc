@@ -116,7 +116,9 @@ alias vimrc="vi ~/.config/nvim/init.lua"
 
 alias kx=kubectx
 
-source ~/.aws/functions.sh
+if [ -f ~/.aws/functions.sh ]; then
+  source ~/.aws/functions.sh
+fi
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
