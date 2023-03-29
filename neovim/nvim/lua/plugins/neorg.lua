@@ -9,6 +9,7 @@ return {
         config = {
           workspaces = {
             notes = "~/notes",
+            tasks = "~/tasks",
           },
         },
       },
