@@ -1,9 +1,3 @@
-require("lspconfig").terraformls.setup({})
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  pattern = { "*.tf", "*.tfvars" },
-  callback = vim.lsp.buf.format(),
-})
-
 require("lspconfig").pylsp.setup({
   settings = {
     pylsp = {
@@ -23,4 +17,10 @@ require("lspconfig").pylsp.setup({
   },
 })
 
-local null_ls = require("null-ls")
+require("null-ls")
+
+require("lspconfig").terraformls.setup({})
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*.tf", "*.tfvars" },
+  callback = vim.lsp.buf.format(),
+})

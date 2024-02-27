@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH:$HOME/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -71,12 +71,14 @@ ZSH_THEME="gruvbox"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  vi-mode
   asdf
   aws
   brew
   git
   fzf
   kubectl
+  rust
   terraform
   wd
 )
@@ -96,6 +98,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -108,11 +111,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
 alias vi=nvim
-alias v=nvim
-alias zshrc="vi ~/.zshrc"
-alias vimrc="vi ~/.config/nvim/init.lua"
+alias n=nvim
+alias zshrc="n ~/.zshrc"
+alias vimrc="n ~/.config/nvim/init.lua"
+alias za="zellij attach --create ${PWD##*/}"
 
 alias kx=kubectx
 
@@ -120,8 +123,46 @@ if [ -f ~/.aws/functions.sh ]; then
   source ~/.aws/functions.sh
 fi
 
+if [ -f ~/.aws/assume.json ]; then
+  set-credentials
+fi
+
+
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
   autoload -Uz compinit
   compinit
 fi
+
+export CC=gcc-13
+
+npm-version ()
+{
+  echo "|| package || current version || latest version || require upgrade? ||" && \
+  echo "| *dependencies* | | | |" && \
+  cat $1 | \
+  jq -r '.dependencies | to_entries[] | [.key, .value] | @tsv' 2>/dev/null |
+  while IFS=$'\t' read -r package version; do
+    echo "| $package | $version | $(npm view $package version 2>/dev/null) | |"
+  done && \
+    echo "| *devDependencies* | | | |" && \
+    cat package.json | \
+    jq -r '.devDependencies | to_entries[] | [.key, .value] | @tsv' 2>/dev/null |
+    while IFS=$'\t' read -r package version; do
+      echo "| $package | $version | $(npm view $package version 2>/dev/null) | |"
+  done
+}
+
+# # Autostarts zellij
+# eval "$(zellij setup --generate-completion zsh)"
+
+bindkey -s ^f "zellij-sessionizer ~/pge/Engage/ ~/pge/Locate\n"
+# source ~/bin/zellij-functions.sh
+export PATH=/usr/local/opt/gnu-getopt/bin:$PATH
+
+export PATH=~/aws-auth-saml-federation-cli/:$PATH
+
+eval "$(op completion zsh)"; compdef _op op
+
+eval "$(zoxide init zsh)"
+

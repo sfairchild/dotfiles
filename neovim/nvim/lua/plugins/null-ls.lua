@@ -1,5 +1,5 @@
 return {
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = { "mason.nvim" },
   opts = function()
@@ -10,7 +10,7 @@ return {
         nls.builtins.formatting.fish_indent,
         nls.builtins.diagnostics.fish,
         nls.builtins.formatting.stylua,
-        nls.builtins.formatting.shfmt,
+        -- nls.builtins.formatting.shfmt,
         nls.builtins.diagnostics.flake8,
       },
     }

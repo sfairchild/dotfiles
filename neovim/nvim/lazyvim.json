@@ -1,0 +1,9 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.lang.python-semshi"
+  ],
+  "news": {
+    "NEWS.md": "2123"
+  },
+  "version": 2
+}
