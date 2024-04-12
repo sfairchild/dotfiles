@@ -166,3 +166,4 @@ eval "$(op completion zsh)"; compdef _op op
 
 eval "$(zoxide init zsh)"
 
+source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
