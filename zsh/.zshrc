@@ -1,14 +1,23 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$PATH:$HOME/bin
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
 ZSH_THEME="gruvbox"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# If you come from bash you might have to change your $PATH.
+export PATH=$PATH:$HOME/bin
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -71,16 +80,17 @@ ZSH_THEME="gruvbox"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  vi-mode
-  asdf
+  1password
   aws
   brew
-  git
   fzf
+  git
   kubectl
   rust
   terraform
+  vi-mode
   wd
+  mise
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -119,14 +129,9 @@ alias za="zellij attach --create ${PWD##*/}"
 
 alias kx=kubectx
 
-if [ -f ~/.aws/functions.sh ]; then
-  source ~/.aws/functions.sh
-fi
-
-if [ -f ~/.aws/assume.json ]; then
-  set-credentials
-fi
-
+# if [ -f ~/.aws/functions.sh ]; then
+#   source ~/.aws/functions.sh
+# fi
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
@@ -134,7 +139,18 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-export CC=gcc-13
+function set-proxy() {
+	export https_proxy=http://webcache.comp.pge.com:8080
+	export ALL_PROXY=http://webcache.comp.pge.com:8080
+	export NO_PROXY=.pge.com,.cloud.pge.com,itiamping.cloud.pge.com
+}
+
+function unset-proxy() {
+	unset https_proxy
+	unset ALL_PROXY
+}
+
+# export CC=gcc-13
 
 npm-version ()
 {
@@ -156,14 +172,50 @@ npm-version ()
 # # Autostarts zellij
 # eval "$(zellij setup --generate-completion zsh)"
 
-bindkey -s ^f "zellij-sessionizer ~/pge/Engage/ ~/pge/Locate\n"
+# bindkey -s ^f "zellij-sessionizer ~/pge/Engage/ ~/pge/Locate\n"
 # source ~/bin/zellij-functions.sh
 export PATH=/usr/local/opt/gnu-getopt/bin:$PATH
 
-export PATH=~/aws-auth-saml-federation-cli/:$PATH
+# export PATH=~/aws-auth-saml-federation-cli/:$PATH
 
 eval "$(op completion zsh)"; compdef _op op
 
 eval "$(zoxide init zsh)"
 
-source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+# source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+
+function awsd() {
+  source _awsd $@
+  # export AWS_ACCOUNT_NUMBER=$(aws sts get-caller-identity --query Account --output text 2>/dev/null)
+  export AWS_ACCOUNT_NUMBER=$(aws configure get $AWS_PROFILE.aws_account_id 2>/dev/null)
+}
+alias lmdev="awsd lmdev"
+alias lmqa="awsd lmqa"
+alias lmprod="awsd lmprod"
+
+
+function set_aws(){
+  export AWS_PROFILE=$(cat ~/.awsd)
+  export AWS_ACCOUNT_NUMBER=$(aws configure get $AWS_PROFILE.aws_account_id 2>/dev/null)
+
+  if [ -v $AWS_ACCOUNT_NUMBER ]; then
+    unset AWS_PROFILE AWS_ACCOUNT_NUMBER
+  fi
+}
+
+function _awsd_completion() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local suggestions="$(awsd list) version list"
+    COMPREPLY=($(compgen -W "$suggestions" -- $cur))
+    return 0
+}
+complete -o nospace -F _awsd_completion "awsd"
+set_aws
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+eval "$(mise activate zsh)"
+eval "$(mise completion zsh)"
+eval "$(chezmoi completion zsh)"
