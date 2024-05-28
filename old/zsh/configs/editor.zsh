@@ -1,1 +1,0 @@
-/Users/sfair01/dotfiles/zsh/configs/editor.zsh

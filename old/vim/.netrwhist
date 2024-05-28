@@ -1,7 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/Users/sfairchild/sfairchild.github.com/pages'
-let g:netrw_dirhist_2='/Users/sfairchild'
-let g:netrw_dirhist_3='/Users/sfairchild/Sites'
-let g:netrw_dirhist_4='/Users/sfairchild/Sites/resources'
-let g:netrw_dirhist_5='/Users/sfairchild/Sites/sfairchild.github.com'

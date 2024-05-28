@@ -4,4 +4,4 @@ vim/bundle/
 config/fish/fishd.*
 
 oh-my-zsh
-
+*.DS_Store
